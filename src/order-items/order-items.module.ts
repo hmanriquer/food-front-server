@@ -7,5 +7,6 @@ import { PrismaModule } from 'nestjs-prisma';
   controllers: [OrderItemsController],
   providers: [OrderItemsService],
   imports: [PrismaModule],
+  exports: [OrderItemsModule],
 })
 export class OrderItemsModule {}
