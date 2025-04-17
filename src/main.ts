@@ -20,7 +20,6 @@ async function bootstrap() {
 
   // Global configurations
   app.setGlobalPrefix('api');
-  app.enableCors();
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   app.useGlobalFilters(new PrismaClientExceptionFilter(httpAdapter));
