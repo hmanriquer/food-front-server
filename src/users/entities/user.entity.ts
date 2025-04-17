@@ -1,7 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { $Enums, User } from '@prisma/client';
+import { Exclude } from 'class-transformer';
 
 export class UserEntity implements User {
+  constructor(partial: Partial<UserEntity>) {
+    Object.assign(this, partial);
+  }
+
   @ApiProperty({
     description: 'The unique identifier for the user',
     example: 1,
@@ -26,12 +31,7 @@ export class UserEntity implements User {
   })
   username: string;
 
-  @ApiProperty({
-    description: 'The password of the user',
-    example: 'password123',
-    type: 'string',
-    name: 'password',
-  })
+  @Exclude()
   password: string;
 
   @ApiProperty({
@@ -52,10 +52,10 @@ export class UserEntity implements User {
   createdAt: Date = new Date();
 
   @ApiProperty({
-    description: 'The date the user was created',
+    description: 'The date the user was last updated',
     example: '2023-01-01T00:00:00Z',
     type: Date,
-    name: 'createdAt',
+    name: 'updatedAt',
     default: new Date(),
   })
   updatedAt: Date = new Date();
