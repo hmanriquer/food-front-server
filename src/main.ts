@@ -2,6 +2,7 @@ import { HttpAdapterHost, NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import {
   ClassSerializerInterceptor,
+  ConsoleLogger,
   ValidationPipe,
   VersioningType,
 } from '@nestjs/common';
@@ -9,7 +10,11 @@ import { PrismaClientExceptionFilter } from 'nestjs-prisma';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: new ConsoleLogger({
+      prefix: 'Food Front API',
+    }),
+  });
 
   const { httpAdapter } = app.get(HttpAdapterHost);
 

@@ -1,10 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'nestjs-prisma';
 
 @Injectable()
 export class UsersService {
+  private readonly logger = new Logger(UsersService.name);
+
   constructor(private readonly prismaService: PrismaService) {}
 
   create(createUserDto: CreateUserDto) {
@@ -12,6 +14,7 @@ export class UsersService {
   }
 
   findAll() {
+    this.logger.log('Fetching all users');
     return this.prismaService.user.findMany();
   }
 
