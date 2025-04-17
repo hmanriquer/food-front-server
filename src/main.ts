@@ -23,6 +23,9 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   app.useGlobalFilters(new PrismaClientExceptionFilter(httpAdapter));
+  app.enableCors({
+    origin: 'http://localhost:1420',
+  });
   app.enableVersioning({
     type: VersioningType.URI,
     defaultVersion: '1',
